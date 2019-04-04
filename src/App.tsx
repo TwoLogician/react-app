@@ -1,34 +1,30 @@
-import * as axios from "axios"
 import * as React from "react"
-import * as NumberFormat from "react-number-format"
+import { HashRouter, Link, Route } from "react-router-dom"
 
 import "./App.css"
+import { One, Two, Three } from "./Pages"
+
 import logo from "./logo.svg"
 
+type State = {
+  name: string
+}
 
-class App extends React.Component {
-  constructor(props) {
-    super(props)
+class App extends React.Component<{}, State> {
+
+  constructor() {
+    super({})
+    this.state = { name: "" }
   }
 
-  fileChange = e => {
-    let data = new FormData()
-    data.append("files", e.target.files[0])
-    data.append("json", JSON.stringify({ roomId: 1, userId: 1 }))
-    axios.default.post("http://localhost:5001/api/folders/import", data).then(rs => {
-      console.log(rs)
-      let url = `http://localhost:5001/api/files?fileName=${rs.data}`
-      let link = document.createElement("a")
-      link.href = url
-      link.click()
-      window.URL.revokeObjectURL(url);
-    }).catch(err => {
-      console.log(err)
+  change = e => {
+    let name = Object.assign(this.state, { name: e.target.value })
+    this.setState(name, () => {
+      console.log(new Date())
     })
   }
 
   public render() {
-
     return (
       <div className="App">
         <header className="App-header">
@@ -38,10 +34,28 @@ class App extends React.Component {
         <p className="App-intro">
           To get started, edit <code>src/App.tsx</code> and save to reload.
         </p>
-        <NumberFormat thousandSeparator={true} prefix={'$'} />
-        <div>
-          <input onChange={this.fileChange} type="file" />
-        </div>
+        <input onChange={this.change} value={this.state.name} />
+        <HashRouter>
+          <div>
+            <nav>
+              <ul>
+                <li>
+                  <Link to="/one/">One</Link>
+                </li>
+                <li>
+                  <Link to="/two/">Two</Link>
+                </li>
+                <li>
+                  <Link to="/three/">Three</Link>
+                </li>
+              </ul>
+            </nav>
+
+            <Route path="/one/" component={One} />
+            <Route path="/two/" component={Two} />
+            <Route path="/three/" component={Three} />
+          </div>
+        </HashRouter>
       </div>
     )
   }
