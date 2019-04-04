@@ -35,6 +35,8 @@ class App extends React.Component<{}, State> {
           To get started, edit <code>src/App.tsx</code> and save to reload.
         </p>
         <input onChange={this.change} value={this.state.name} />
+        <div className="desktop">Desktop</div>
+        <div className="mobile">Mobile</div>
         <HashRouter>
           <div>
             <nav>
