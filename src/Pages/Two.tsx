@@ -23,7 +23,7 @@ class Two extends React.Component<{}, State> {
     public render() {
         return (
             this.state.redirect ?
-                <Redirect to="/three/" />
+                <Redirect push to="/three/" />
                 :
                 <div>
                     <h1>Two</h1>

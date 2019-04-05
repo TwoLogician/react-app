@@ -52,7 +52,6 @@ class App extends React.Component<{}, State> {
                 </li>
               </ul>
             </nav>
-
             <Route path="/one/" component={One} />
             <Route path="/two/" component={Two} />
             <Route path="/three/" component={Three} />
