@@ -7,6 +7,7 @@ import { One, Two, Three } from "./Pages"
 import logo from "./logo.svg"
 
 type State = {
+  check: boolean
   name: string
 }
 
@@ -14,7 +15,11 @@ class App extends React.Component<{}, State> {
 
   constructor() {
     super({})
-    this.state = { name: "" }
+    this.state = { check: false, name: "" }
+  }
+
+  checkChange = () => {
+    this.setState({ check: !this.state.check })
   }
 
   change = e => {
@@ -25,6 +30,9 @@ class App extends React.Component<{}, State> {
   }
 
   public render() {
+
+    let { check } = this.state
+
     return (
       <div className="App">
         <header className="App-header">
@@ -37,6 +45,7 @@ class App extends React.Component<{}, State> {
         <input onChange={this.change} value={this.state.name} />
         <div className="desktop">Desktop</div>
         <div className="mobile">Mobile</div>
+        <button className={check ? "fg-yellow" : "fg-gray"} onClick={this.checkChange}>♥</button>
         <HashRouter>
           <div>
             <nav>
